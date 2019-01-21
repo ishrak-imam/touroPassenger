@@ -1,0 +1,47 @@
+{
+  "name": "touro-passenger-app",
+  "main": "node_modules/expo/AppEntry.js",
+  "description": "Cross-platform native app for Touro passengers",
+
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+
+    "publish-staging": "expo publish --release-channel staging",
+    "publish-prod": "expo publish --release-channel prod-v1",
+
+    "build-android-staging": "expo build:android --release-channel staging",
+    "build-android-prod": "expo build:android --release-channel prod-v1",
+
+    "build-ios-staging": "expo build:ios --release-channel staging",
+    "build-ios-prod": "expo build:ios --release-channel prod-v1"
+  },
+
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "expo": "^32.0.0",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "date-fns": "^1.29.0",
+    "immutable": "^4.0.0-rc.12",
+    "jwt-decode": "^2.2.0",
+    "react-native-immutable-list-view": "^0.7.3",
+    "react-native-keyboard-aware-scroll-view": "^0.7.2",
+    "react-native-openanything": "^0.0.3",
+    "react-native-popup-menu": "^0.14.1",
+    "react-navigation": "^2.18.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "redux-persist-transform-immutable": "^5.0.0",
+    "redux-saga": "^0.16.0"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0"
+  },
+  "private": true
+}
