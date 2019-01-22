@@ -13,10 +13,7 @@ const Colors = {
   fire: '#E73536',
   blue: '#2296F3',
   black: '#000000',
-  SCBrand: '#6EADD7',
-  OHBrand: '#CE7F9E',
-  SSBrand: '#D7C58F',
-  GKBrand: '#6BC477'
+  buttonDisable: '#73C2FB'
 }
 
 export default Colors
