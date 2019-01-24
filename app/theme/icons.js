@@ -4,6 +4,10 @@ import { Ionicons } from '@expo/vector-icons'
 
 const getIconName = name => {
   const icons = {
+    check: ['ios-checkmark', 'md-checkmark'],
+    close: ['ios-close', 'md-close'],
+    circleCheck: ['ios-checkmark-circle-outline', 'md-checkmark-circle-outline'],
+    circleClose: ['ios-close-circle-outline', 'md-close-circle-outline']
   }
   const result = icons[name]
   return isIOS ? result[0] : result[1]

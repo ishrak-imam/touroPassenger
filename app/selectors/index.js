@@ -5,3 +5,7 @@ export const getLogin = state => state.login
 export const getUser = state => state.login.get('user')
 export const getJwt = state => state.login.getIn(['user', 'accessToken'])
 export const getImageCache = state => state.imageCache
+
+export const {
+  getNotification
+} = require('./notification')

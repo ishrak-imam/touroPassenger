@@ -53,7 +53,9 @@ function * workerLogin (action) {
     yield call(localStore.set, USER, formatUserData(result))
     yield put(init())
   } catch (e) {
-    yield put(loginFail({ msg: failMsg }))
+    yield put(loginFail({
+      notification: { type: 'ERROR', message: failMsg }
+    }))
   }
 }
 

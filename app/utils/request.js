@@ -22,10 +22,10 @@ const responseHandler = response => {
   if(response.status === 500) {
     return Promise.reject('Something went wrong')
   }
-  return response.json().then(e => {
-    const {code, message, name} = e;
-    return Promise.reject({code, message, name});
-  });
+  // return response.json().then(e => {
+  //   const {code, message, name} = e;
+  //   return Promise.reject({code, message, name});
+  // });
 };
 
 export const postRequest = (endPoint, data, headers = {}) => {

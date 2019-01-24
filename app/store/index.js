@@ -15,6 +15,7 @@ import rootReducer from './rootReducer'
  */
 import Logger from '../middlewares/logger'
 import AttachJwt from '../middlewares/attachJwt'
+import Notification from '../middlewares/notification'
 
 
 /**
@@ -24,7 +25,7 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 const SagaMiddleware = createSagaMiddleware()
 const middlewares = [
-  SagaMiddleware, AttachJwt
+  SagaMiddleware, AttachJwt, Notification
 ]
 if (__DEV__) {
   middlewares.push(Logger)

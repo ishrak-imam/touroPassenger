@@ -9,13 +9,15 @@ import * as appReducers from '../modules/app/reducer'
 import * as cacheImageReducers from '../components/imageCache/reducer'
 import * as authReducers from '../modules/auth/reducer'
 import * as connectionReducer from '../connection/reducer'
+import * as notificationResucer from '../notification/reducer'
 
 const allReducers = combineReducers({
   ...navReducers,
   ...appReducers,
   ...cacheImageReducers,
   ...connectionReducer,
-  ...authReducers
+  ...authReducers,
+  ...notificationResucer
 })
 
 const rootReduces = (state, action) => {

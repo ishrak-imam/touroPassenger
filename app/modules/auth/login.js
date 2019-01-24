@@ -11,6 +11,9 @@ import { Colors, Images } from '../../theme'
 import { checkEmail } from '../../utils/stringHelpers'
 import { getLogin } from '../../selectors'
 import { connect } from 'react-redux'
+import Translator from '../../utils/translator'
+
+const _T = Translator('LoginScreen')
 
 class LoginScreen extends Component {
   constructor (props) {
@@ -36,7 +39,8 @@ class LoginScreen extends Component {
     const { user, password } = this.state
     networkActionDispatcher(loginReq({
       user,
-      password
+      password,
+      failMsg: _T('loginFail')
     }))
   }
 

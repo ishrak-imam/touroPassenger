@@ -6,7 +6,5 @@ export const LOGIN_INITIAL_STATE = getMap({
   user: getMap({
     firstName: '',
     lastName: ''
-  }),
-  error: null,
-  forgotPass: null
+  })
 })
