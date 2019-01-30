@@ -1,5 +1,6 @@
 export default {
-  LoginScreen: {
-    loginFail: 'Invalid username or password'
+  Auth: {
+    loginFail: 'Invalid username or password',
+    registration: 'Registration'
   }
 }

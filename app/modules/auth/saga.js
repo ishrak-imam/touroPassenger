@@ -4,12 +4,13 @@ import { takeFirst } from '../../utils/sagaHelpers'
 import {
   init,
   loginReq, loginSucs, loginFail,
-  logoutReq, logoutSucs
+  logoutReq, logoutSucs,
+  ssnDataReq, ssnDataSucs, ssnDataFail
 } from './action'
 // import { clearImageCache } from '../../components/imageCache/action'
 import { navigateToScene } from '../../navigation/action'
 import localStore, { USER } from '../../utils/persist'
-import { login } from './api'
+import { login, requestSSNData } from './api'
 
 export function * watchInit () {
   yield takeFirst(init.getType(), workerInit)
@@ -54,7 +55,24 @@ function * workerLogin (action) {
     yield put(init())
   } catch (e) {
     yield put(loginFail({
-      notification: { type: 'ERROR', message: failMsg }
+      notification: { type: 'ERROR', message: e || failMsg }
+    }))
+  }
+}
+
+export function * watchGetSSNData () {
+  yield takeFirst(ssnDataReq.getType(), workerGetSSNData)
+}
+
+function * workerGetSSNData (action) {
+  const { ssn, failMsg } = action.payload
+  try {
+    const ssnData = yield call(requestSSNData, ssn)
+    ssnData.ssn = ssn
+    yield put(ssnDataSucs(ssnData))
+  } catch (e) {
+    yield put(ssnDataFail({
+      notification: { type: 'ERROR', message: e || failMsg }
     }))
   }
 }

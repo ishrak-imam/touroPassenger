@@ -1,20 +1,30 @@
+import React from 'react'
 
 import {
   createStackNavigator,
-  createSwitchNavigator
+  createSwitchNavigator,
+  createDrawerNavigator
 } from 'react-navigation'
 
-import LoadingScreen from '../modules/auth/loadingScreen'
+import Drawer from '../components/drawer'
+
+import Loading from '../modules/auth/loading'
 import Login from '../modules/auth/login'
+import Registration from '../modules/auth/registration'
 import HomeScreen from '../modules/home'
 
 const authStack = createStackNavigator(
   {
-    Login: { screen: Login }
+    Login: { screen: Login },
+    Registration: { screen: Registration }
   },
   {
     initialRouteName: 'Login',
-    headerMode: 'none'
+    mode: 'modal',
+    headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false
+    }
   }
 )
 
@@ -32,10 +42,19 @@ const appStack = createStackNavigator(
   }
 )
 
+const drawerStack = createDrawerNavigator(
+  {
+    App: { screen: appStack }
+  },
+  {
+    contentComponent: props => <Drawer {...props} />
+  }
+)
+
 const RootNavigator = createSwitchNavigator(
   {
-    AuthLoading: LoadingScreen,
-    App: appStack,
+    AuthLoading: Loading,
+    App: drawerStack,
     Auth: authStack
   },
   {

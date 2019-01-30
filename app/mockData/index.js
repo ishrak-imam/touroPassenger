@@ -14,17 +14,16 @@ export const mockToken = () => new Promise(resolve => {
   }, 2000)
 })
 
-export const mockUser = () => new Promise(resolve => {
+export const mockSSNData = () => new Promise(resolve => {
   setTimeout(() => {
     return resolve({
-      'id': 52,
-      'email': 'ishrak@cefalo.com',
-      'lastName': 'Ibne Imam',
-      'firstName': 'Ishrak',
-      'hash': '',
-      'salt': '',
-      'activeDirectoryName': null,
-      'phone': ''
+      ssn: '',
+      firstName: 'Ishrak',
+      lastName: 'Ibne Imam',
+      address: '83/1 East Rajabazar, Farmgate',
+      zip: '1217',
+      city: 'Dhaka',
+      email: 'ishrak@cefalo.com'
     })
   }, 2000)
 })

@@ -8,6 +8,9 @@ import { width } from '../utils/windowSize'
 import { Colors } from '../theme'
 
 export default class Pager extends PureComponent {
+  static defaultProps = {
+    height: 300
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -30,10 +33,10 @@ export default class Pager extends PureComponent {
   }
 
   _getPages = () => {
-    const { children } = this.props
+    const { children, height } = this.props
     return React.Children.map(children, child => {
       return child
-        ? <View style={ss.child}>{child}</View>
+        ? <View style={[ss.child, { height }]}>{child}</View>
         : null
     })
   }
@@ -104,23 +107,21 @@ export default class Pager extends PureComponent {
   // }
 
   render () {
-    const { style, miniMap, autoplay } = this.props
+    const { height, miniMap, autoplay } = this.props
     return (
-      <View style={style}>
-        <View>
-          <ScrollView
-            ref={ref => { this.pager = ref }}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onScroll={this._onScroll()}
-            scrollEventThrottle={16}
-            scrollEnabled={!autoplay}
-            // onMomentumScrollEnd={this._handlePageChange}
-          >
-            {this._getPages()}
-          </ScrollView>
-        </View>
+      <View style={{ height }}>
+        <ScrollView
+          ref={ref => { this.pager = ref }}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={this._onScroll()}
+          scrollEventThrottle={16}
+          scrollEnabled={!autoplay}
+          // onMomentumScrollEnd={this._handlePageChange}
+        >
+          {this._getPages()}
+        </ScrollView>
         {miniMap && this._renderMinimap()}
       </View>
     )

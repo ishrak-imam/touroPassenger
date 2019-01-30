@@ -9,7 +9,7 @@ import { startConnectionMonitor, checkConnection } from '../../connection/action
 import { createCacheDir } from '../../components/imageCache/action'
 import { startAppStateMonitor } from '../../modules/app/action'
 
-class LoadingScreen extends Component {
+class Loading extends Component {
   componentDidMount () {
     if (!isIOS) this.props.dispatch(checkConnection())
     this.props.dispatch(createCacheDir())
@@ -20,18 +20,19 @@ class LoadingScreen extends Component {
   render () {
     return (
       <View style={ss.container}>
-        <ActivityIndicator size='large' color={Colors.blue} />
+        <ActivityIndicator size='large' color={Colors.white} />
       </View>
     )
   }
 }
 
-export default connect(null, dispatch => ({ dispatch }))(LoadingScreen)
+export default connect(null, dispatch => ({ dispatch }))(Loading)
 
 const ss = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.blue
   }
 })

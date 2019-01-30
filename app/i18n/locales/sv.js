@@ -1,5 +1,6 @@
 export default {
-  LoginScreen: {
-    loginFail: 'Ogiltigt användarnamn eller lösenord'
+  Auth: {
+    loginFail: 'Ogiltigt användarnamn eller lösenord',
+    registration: 'Registrering'
   }
 }

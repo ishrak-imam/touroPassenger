@@ -13,7 +13,7 @@ import { getLogin } from '../../selectors'
 import { connect } from 'react-redux'
 import Translator from '../../utils/translator'
 
-const _T = Translator('LoginScreen')
+const _T = Translator('Auth')
 
 class LoginScreen extends Component {
   constructor (props) {
@@ -46,6 +46,10 @@ class LoginScreen extends Component {
 
   _handleChange = field => text => {
     this.setState({ [field]: text }, this._checkIsReady)
+  }
+
+  _toRegistration = () => {
+    this.props.navigation.navigate('Registration')
   }
 
   render () {
@@ -93,7 +97,7 @@ class LoginScreen extends Component {
             {isLoading ? <ActivityIndicator color={Colors.white} /> : <Text style={ss.loginText}>Login</Text>}
           </TouchableOpacity>
           <View style={ss.options}>
-            <TouchableOpacity disabled={isLoading}>
+            <TouchableOpacity disabled={isLoading} onPress={this._toRegistration}>
               <Text style={ss.optionText}>Create an account</Text>
             </TouchableOpacity>
             <TouchableOpacity disabled={forgotDisabled}>
@@ -132,7 +136,7 @@ const ss = StyleSheet.create({
     paddingBottom: 10
   },
   inputElements: {
-    height: 40,
+    height: 45,
     width: 300,
     backgroundColor: Colors.steel,
     borderRadius: 10,
@@ -140,7 +144,7 @@ const ss = StyleSheet.create({
     marginBottom: 10
   },
   loginButton: {
-    height: 40,
+    height: 45,
     width: 300,
     borderRadius: 10,
     marginBottom: 10,
@@ -152,7 +156,7 @@ const ss = StyleSheet.create({
     color: Colors.white
   },
   options: {
-    height: 40,
+    height: 45,
     width: 300,
     marginBottom: 10,
     flexDirection: 'row',
