@@ -19,6 +19,9 @@ const responseHandler = response => {
   if(response.status === 404) {
     return Promise.reject('404 not found')
   }
+  if(response.status === 400) {
+    return Promise.reject()
+  }
   if(response.status === 500) {
     return Promise.reject('Something went wrong')
   }
