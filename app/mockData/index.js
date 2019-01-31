@@ -21,7 +21,7 @@ export const mockSSNData = () => new Promise(resolve => {
       FirstName: 'Ishrak',
       LastName: 'Ibne Imam',
       Address: '83/1 East Rajabazar, Farmgate',
-      Zip: '1217',
+      Zip: '23637',
       City: 'Dhaka',
       Email: 'ishrak@cefalo.com'
     })

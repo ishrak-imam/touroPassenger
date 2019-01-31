@@ -8,7 +8,7 @@ import { Colors } from '../../theme'
 import Header from '../../components/header'
 import Translator from '../../utils/translator'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { checkSSN, checkEmail } from '../../utils/stringHelpers'
+import { checkSSN, checkZip, checkEmail } from '../../utils/stringHelpers'
 import { ssnDataReq, clearSSNData } from './action'
 import { actionDispatcher, networkActionDispatcher } from '../../utils/actionDispatcher'
 import { connect } from 'react-redux'
@@ -46,7 +46,7 @@ class Registration extends Component {
 
     if (isLoyalty) return (!isValidSSN || isLoading)
 
-    return !(FirstName && LastName && Address && Zip && City && checkEmail(Email))
+    return !(FirstName && LastName && Address && checkZip(Zip) && City && checkEmail(Email))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -71,7 +71,9 @@ class Registration extends Component {
   }
 
   _handleChange = field => text => {
-    this.setState({ [field]: text }, this._checkSSNDebounce)
+    this.setState({ [field]: text }, () => {
+      if (field === 'ssn') this._checkSSNDebounce()
+    })
   }
 
   _loyaltyToggle = () => {
@@ -124,6 +126,7 @@ class Registration extends Component {
             placeholderTextColor={Colors.charcoal}
             value={ssn}
             editable={!isValidSSN || !isLoading}
+            keyboardType='numeric'
           />
 
           <View style={ss.loyalityElement}>
@@ -184,6 +187,7 @@ class Registration extends Component {
               placeholderTextColor={Colors.charcoal}
               value={Zip}
               editable={!isLoading}
+              keyboardType='numeric'
             />
 
             <TextInput

@@ -19,6 +19,11 @@ export const checkSSN = ssn => {
   return re.test(String(ssn))
 }
 
+export const checkZip = zip => {
+  const re = /^(s-|S-){0,1}[0-9]{3}\s?[0-9]{2}$/
+  return re.test(String(zip))
+}
+
 export const getImageName = url => {
   // const split = url.split('/')
   // return `${split[split.length - 2]}.jpg`
