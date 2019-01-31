@@ -5,6 +5,7 @@ const Colors = {
   white: '#FFFFFF',
   silver: '#F7F7F7',
   steel: '#CCCCCC',
+  grey: '#808080',
   charcoal: '#595959',
   cloud: '#E5E5E5',
   coal: '#2D2D2D',

@@ -10,7 +10,9 @@ const getIconName = name => {
     circleClose: ['ios-close-circle-outline', 'md-close-circle-outline'],
     back: ['ios-arrow-back', 'md-arrow-back'],
     menu: ['ios-menu', 'md-menu'],
-    logOut: ['ios-log-out', 'md-log-out']
+    logOut: ['ios-log-out', 'md-log-out'],
+    radioOff: ['ios-radio-button-off', 'md-radio-button-off'],
+    checkFill: ['ios-checkmark-circle', 'md-checkmark-circle']
   }
   const result = icons[name]
   return isIOS ? result[0] : result[1]

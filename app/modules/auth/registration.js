@@ -8,12 +8,13 @@ import { Colors } from '../../theme'
 import Header from '../../components/header'
 import Translator from '../../utils/translator'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { checkSSN } from '../../utils/stringHelpers'
+import { checkSSN, checkEmail } from '../../utils/stringHelpers'
 import { ssnDataReq, clearSSNData } from './action'
 import { actionDispatcher, networkActionDispatcher } from '../../utils/actionDispatcher'
 import { connect } from 'react-redux'
 import { getLogin } from '../../selectors'
 import debounce from '../../utils/debounce'
+import CheckBox from '../../components/checkBox'
 
 const _T = Translator('Auth')
 
@@ -21,11 +22,48 @@ class Registration extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      isLoyalty: false,
+      isValidSSN: false,
       ssn: '',
-      isValidSSN: false
+      FirstName: '',
+      LastName: '',
+      Address: '',
+      Zip: '',
+      City: '',
+      Email: ''
     }
     this._checkSSNDebounce = debounce(this._checkSSN, 200)
     this._clearSSNData()
+  }
+
+  get isDisabled () {
+    const { login } = this.props
+    const isLoading = login.get('isLoading')
+    const {
+      isLoyalty, isValidSSN, FirstName, LastName,
+      Address, Zip, City, Email
+    } = this.state
+
+    if (isLoyalty) return (!isValidSSN || isLoading)
+
+    return !(FirstName && LastName && Address && Zip && City && checkEmail(Email))
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { login } = nextProps
+    this._resolveSSNData(login.get('ssnData'))
+  }
+
+  _resolveSSNData = data => {
+    const ssnData = {
+      FirstName: data.get('FirstName'),
+      LastName: data.get('LastName'),
+      Address: data.get('Address'),
+      Zip: data.get('Zip'),
+      City: data.get('City'),
+      Email: data.get('Email')
+    }
+    this.setState(ssnData)
   }
 
   _clearSSNData = () => {
@@ -34,6 +72,10 @@ class Registration extends Component {
 
   _handleChange = field => text => {
     this.setState({ [field]: text }, this._checkSSNDebounce)
+  }
+
+  _loyaltyToggle = () => {
+    this.setState({ isLoyalty: !this.state.isLoyalty })
   }
 
   _checkSSN = () => {
@@ -53,12 +95,12 @@ class Registration extends Component {
 
   render () {
     const { navigation, login } = this.props
-    const { ssn, isValidSSN } = this.state
+    const {
+      isLoyalty, isValidSSN,
+      ssn, FirstName, LastName, Address, City, Zip, Email
+    } = this.state
     const isLoading = login.get('isLoading')
-    const ssnData = login.get('ssnData')
-
-    const isDisabled = !isValidSSN || !ssnData.size || isLoading
-    const backgroundColor = isDisabled ? Colors.buttonDisable : Colors.blue
+    const backgroundColor = this.isDisabled ? Colors.buttonDisable : Colors.blue
 
     return (
       <View style={ss.screenWrapper}>
@@ -84,73 +126,94 @@ class Registration extends Component {
             editable={!isValidSSN || !isLoading}
           />
 
+          <View style={ss.loyalityElement}>
+            <TouchableOpacity style={ss.loyaltyCheck} onPress={this._loyaltyToggle}>
+              <CheckBox checked={isLoyalty} />
+              <Text style={ss.loyaltyText}>Loyalty member</Text>
+            </TouchableOpacity>
+            <View style={ss.exTextContainer}>
+              <Text style={ss.exText}>SSN is mandatory to register as a loyalty program member.</Text>
+            </View>
+          </View>
+
           <TextInput
             style={ss.inputElements}
+            onChangeText={this._handleChange('FirstName')}
             placeholder='First name'
             autoCapitalize='none'
             autoCorrect={false}
             underlineColorAndroid='transparent'
             placeholderTextColor={Colors.charcoal}
-            value={ssnData.get('FirstName')}
+            value={FirstName}
+            editable={!isLoading}
           />
 
           <TextInput
             style={ss.inputElements}
+            onChangeText={this._handleChange('LastName')}
             placeholder='Last name'
             autoCapitalize='none'
             autoCorrect={false}
             underlineColorAndroid='transparent'
             placeholderTextColor={Colors.charcoal}
-            value={ssnData.get('LastName')}
+            value={LastName}
+            editable={!isLoading}
           />
 
           <TextInput
             style={ss.inputElements}
-            onChangeText={() => {}}
+            onChangeText={this._handleChange('Address')}
             placeholder='Address'
             autoCapitalize='none'
             autoCorrect={false}
             underlineColorAndroid='transparent'
             placeholderTextColor={Colors.charcoal}
-            value={ssnData.get('Address')}
+            value={Address}
+            editable={!isLoading}
           />
 
           <View style={ss.doubleInput}>
 
             <TextInput
               style={ss.zip}
+              onChangeText={this._handleChange('Zip')}
               placeholder='Zip'
               autoCapitalize='none'
               autoCorrect={false}
               underlineColorAndroid='transparent'
               placeholderTextColor={Colors.charcoal}
-              value={ssnData.get('Zip')}
+              value={Zip}
+              editable={!isLoading}
             />
 
             <TextInput
               style={ss.city}
+              onChangeText={this._handleChange('City')}
               placeholder='City'
               autoCapitalize='none'
               autoCorrect={false}
               underlineColorAndroid='transparent'
               placeholderTextColor={Colors.charcoal}
-              value={ssnData.get('City')}
+              value={City}
+              editable={!isLoading}
             />
 
           </View>
 
           <TextInput
             style={ss.inputElements}
+            onChangeText={this._handleChange('Email')}
             placeholder='Email'
             autoCapitalize='none'
             autoCorrect={false}
             underlineColorAndroid='transparent'
             placeholderTextColor={Colors.charcoal}
             keyboardType='email-address'
-            value={ssnData.get('Email')}
+            value={Email}
+            editable={!isLoading}
           />
 
-          <TouchableOpacity style={[ss.registerButton, { backgroundColor }]} disabled={isDisabled} onPress={() => {}}>
+          <TouchableOpacity style={[ss.registerButton, { backgroundColor }]} disabled={this.isDisabled} onPress={() => {}}>
             {isLoading ? <ActivityIndicator color={Colors.white} /> : <Text style={ss.registerText}>Register</Text>}
           </TouchableOpacity>
 
@@ -178,6 +241,35 @@ const ss = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+
+  loyalityElement: {
+    height: 80,
+    width: 300,
+    // backgroundColor: Colors.steel,
+    borderRadius: 10,
+    paddingLeft: 10,
+    marginBottom: 10
+  },
+  loyaltyCheck: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  loyaltyText: {
+    fontSize: 15,
+    marginLeft: 10
+  },
+  exTextContainer: {
+    flex: 1.3,
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  exText: {
+    fontStyle: 'italic',
+    color: Colors.grey
+  },
+
   inputElements: {
     height: 45,
     width: 300,

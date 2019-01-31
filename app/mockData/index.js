@@ -18,12 +18,12 @@ export const mockSSNData = () => new Promise(resolve => {
   setTimeout(() => {
     return resolve({
       ssn: '',
-      firstName: 'Ishrak',
-      lastName: 'Ibne Imam',
-      address: '83/1 East Rajabazar, Farmgate',
-      zip: '1217',
-      city: 'Dhaka',
-      email: 'ishrak@cefalo.com'
+      FirstName: 'Ishrak',
+      LastName: 'Ibne Imam',
+      Address: '83/1 East Rajabazar, Farmgate',
+      Zip: '1217',
+      City: 'Dhaka',
+      Email: 'ishrak@cefalo.com'
     })
   }, 2000)
 })
