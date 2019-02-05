@@ -97,12 +97,15 @@ export default class ScrollableTab extends Component {
   }
 
   render () {
+    let { backgroundColor } = this.props
+    backgroundColor = backgroundColor || Colors.blue
+
     return (
       <View style={ss.container}>
         <ScrollView
           ref={ref => { this.scrollableTab = ref }}
           horizontal
-          contentContainerStyle={ss.scrollView}
+          contentContainerStyle={[ss.scrollView, { backgroundColor }]}
           onScroll={this._onScroll}
           showsHorizontalScrollIndicator={false}
         >
@@ -118,8 +121,7 @@ const ss = StyleSheet.create({
     height: MENU_STRIP_HEIGHT
   },
   scrollView: {
-    height: MENU_STRIP_HEIGHT,
-    backgroundColor: Colors.blue
+    height: MENU_STRIP_HEIGHT
   },
   menuItem: {
     height: MENU_STRIP_HEIGHT,
@@ -128,8 +130,7 @@ const ss = StyleSheet.create({
   menuTextCon: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.blue
+    alignItems: 'center'
   },
   menuText: {
     fontSize: 16,
