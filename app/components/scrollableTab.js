@@ -16,7 +16,7 @@ const MENU_ITEMS = [
 
 const MENU_STRIP_HEIGHT = 45
 const ITEM_WIDTH = 150
-const SCROLL_LIMIT_RIGHT = (MENU_ITEMS.length * ITEM_WIDTH) - width
+const SCROLL_LIMIT_RIGHT = Math.round((MENU_ITEMS.length * ITEM_WIDTH) - width)
 const SCROLL_LIMIT_LEFT = 0
 
 export default class ScrollableTab extends Component {
