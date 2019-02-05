@@ -8,9 +8,6 @@ import { width } from '../utils/windowSize'
 import { Colors } from '../theme'
 
 export default class Pager extends PureComponent {
-  static defaultProps = {
-    height: 300
-  }
   constructor (props) {
     super(props)
     this.state = {
@@ -24,19 +21,26 @@ export default class Pager extends PureComponent {
   }
 
   componentDidMount () {
+    this._setRef(this)
     const { autoplay, children } = this.props
     if (autoplay && children.length) this._startAutoPlay()
   }
 
   componentWillUnmount () {
+    this._setRef(undefined)
     if (this._autoPlay) clearInterval(this._autoPlay)
   }
 
+  _setRef = ref => {
+    const { onRef } = this.props
+    if (onRef) onRef(ref)
+  }
+
   _getPages = () => {
-    const { children, height } = this.props
+    const { children } = this.props
     return React.Children.map(children, child => {
       return child
-        ? <View style={[ss.child, { height }]}>{child}</View>
+        ? <View style={ss.child}>{child}</View>
         : null
     })
   }
@@ -81,7 +85,7 @@ export default class Pager extends PureComponent {
 
     currentPage = (direction === '>') ? currentPage + 1 : currentPage - 1
     const x = direction === '>' ? (scrollOffset + width) : (scrollOffset - width)
-    this.pager.scrollTo({ x, y: 0, animated: true })
+    this.pager.scrollTo({ x, animated: true })
     this.setState({
       currentPage,
       scrollOffset: x,
@@ -89,7 +93,20 @@ export default class Pager extends PureComponent {
     })
   }
 
+  _slideTo = page => {
+    const { currentPage, scrollOffset } = this.state
+
+    const diff = page - currentPage
+    const x = scrollOffset + (diff * width)
+    this.pager.scrollTo({ x, animated: true })
+    this.setState({
+      currentPage: currentPage + diff,
+      scrollOffset: x
+    })
+  }
+
   _onScroll = () => {
+    if (!this.props.miniMap) return
     return Animated.event([{
       nativeEvent: {
         contentOffset: {
@@ -99,17 +116,19 @@ export default class Pager extends PureComponent {
     }])
   }
 
-  // _handlePageChange = event => {
-  //   const offset = event.nativeEvent.contentOffset
-  //   if (offset) {
-  //     const page = Math.round(offset.x / width) + 1
-  //   }
-  // }
+  _handlePageChange = event => {
+    const { onPageChange } = this.props
+    const offset = event.nativeEvent.contentOffset
+    if (offset) {
+      const page = Math.round(offset.x / width)
+      if (onPageChange) onPageChange(page)
+    }
+  }
 
   render () {
-    const { height, miniMap, autoplay } = this.props
+    const { style, miniMap, autoplay } = this.props
     return (
-      <View style={{ height }}>
+      <View style={style}>
         <ScrollView
           ref={ref => { this.pager = ref }}
           horizontal
@@ -118,7 +137,7 @@ export default class Pager extends PureComponent {
           onScroll={this._onScroll()}
           scrollEventThrottle={16}
           scrollEnabled={!autoplay}
-          // onMomentumScrollEnd={this._handlePageChange}
+          onMomentumScrollEnd={this._handlePageChange}
         >
           {this._getPages()}
         </ScrollView>
@@ -133,6 +152,7 @@ const ss = StyleSheet.create({
     flex: 5
   },
   child: {
+    flex: 1,
     width,
     overflow: 'hidden'
   },
