@@ -25,9 +25,9 @@ export default class HomeScreen extends Component {
       <View style={ss.container}>
         {/* <Header icon='menu' title='Home' navigation={navigation} /> */}
 
-        <StatusBar backgroundColor='rgba(0,0,0,0.9)' />
+        <StatusBar />
 
-        <Pager style={{ height: 200 }} minimap autoplay>
+        <Pager style={{ height: 250 }} minimap autoplay>
           <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />
