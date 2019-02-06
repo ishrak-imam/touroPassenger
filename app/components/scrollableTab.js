@@ -101,13 +101,14 @@ export default class ScrollableTab extends Component {
     backgroundColor = backgroundColor || Colors.blue
 
     return (
-      <View style={ss.container}>
+      <View style={[ss.container, { backgroundColor }]}>
         <ScrollView
           ref={ref => { this.scrollableTab = ref }}
           horizontal
           contentContainerStyle={[ss.scrollView, { backgroundColor }]}
           onScroll={this._onScroll}
           showsHorizontalScrollIndicator={false}
+          scrollEnabled={false}
         >
           {this._renderMenuItems()}
         </ScrollView>

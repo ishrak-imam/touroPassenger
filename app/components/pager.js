@@ -49,11 +49,11 @@ export default class Pager extends PureComponent {
     const { children } = this.props
     if (!children) return null
 
-    let miniMap = null
-    if (!children.length) miniMap = <Animated.View style={ss.dots} />
+    let minimap = null
+    if (!children.length) minimap = <Animated.View style={ss.dots} />
     if (children.length) {
       const position = Animated.divide(this._minimap, width)
-      miniMap = children.map((_, i) => {
+      minimap = children.map((_, i) => {
         const opacity = position.interpolate({
           inputRange: [i - 1, i, i + 1],
           outputRange: [0.25, 1, 0.25],
@@ -65,7 +65,7 @@ export default class Pager extends PureComponent {
 
     return (
       <View style={ss.minimap}>
-        {miniMap}
+        {minimap}
       </View>
     )
   }
@@ -95,7 +95,6 @@ export default class Pager extends PureComponent {
 
   _slideTo = page => {
     const { currentPage, scrollOffset } = this.state
-
     const diff = page - currentPage
     const x = scrollOffset + (diff * width)
     this.pager.scrollTo({ x, animated: true })
@@ -106,7 +105,7 @@ export default class Pager extends PureComponent {
   }
 
   _onScroll = () => {
-    if (!this.props.miniMap) return
+    if (!this.props.minimap) return
     return Animated.event([{
       nativeEvent: {
         contentOffset: {
@@ -126,7 +125,7 @@ export default class Pager extends PureComponent {
   }
 
   render () {
-    const { style, miniMap, autoplay } = this.props
+    const { style, minimap, autoplay } = this.props
     return (
       <View style={style}>
         <ScrollView
@@ -141,7 +140,7 @@ export default class Pager extends PureComponent {
         >
           {this._getPages()}
         </ScrollView>
-        {miniMap && this._renderMinimap()}
+        {minimap && this._renderMinimap()}
       </View>
     )
   }

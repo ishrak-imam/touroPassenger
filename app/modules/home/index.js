@@ -5,9 +5,10 @@ import {
 } from 'react-native'
 import Pager from '../../components/pager'
 import ImageCache from '../../components/imageCache'
-import Header from '../../components/header'
-
+// import Header from '../../components/header'
 import ScrollableTab from '../../components/scrollableTab'
+import Transport from '../../components/transport'
+import StatusBar from '../../components/statusBar'
 
 export default class HomeScreen extends Component {
   _onPageChange = pageNumber => {
@@ -19,21 +20,19 @@ export default class HomeScreen extends Component {
   }
 
   render () {
-    const { navigation } = this.props
+    // const { navigation } = this.props
     return (
       <View style={ss.container}>
-        <Header icon='menu' title='Home' navigation={navigation} />
+        {/* <Header icon='menu' title='Home' navigation={navigation} /> */}
 
-        {/* <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-          <Pager style={{ height: 300 }} miniMap autoplay>
-            <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
-            <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
-            <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />
-            <ImageCache uri={'https://picsum.photos/500/300?image=5'} style={ss.image} />
-          </Pager>
-        </View>
+        <StatusBar backgroundColor='rgba(0,0,0,0.9)' />
 
-        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }} /> */}
+        <Pager style={{ height: 200 }} minimap autoplay>
+          <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=5'} style={ss.image} />
+        </Pager>
 
         <ScrollableTab
           onRef={ref => (this.scrollableTab = ref)}
@@ -48,8 +47,8 @@ export default class HomeScreen extends Component {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Booking</Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Transport</Text>
+          <View style={{ flex: 1 }}>
+            <Transport />
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Hotel</Text>

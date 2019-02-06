@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { Colors, IonIcon } from '../theme'
 import isIOS from '../utils/isIOS'
+import TouroStatusBar from './statusBar'
 
 export default class Header extends Component {
   _renderLeft = icon => {
@@ -51,10 +52,13 @@ export default class Header extends Component {
   render () {
     const { icon, title } = this.props
     return (
-      <View style={ss.container}>
-        {this._renderLeft(icon)}
-        {this._renderMiddle(title)}
-        {this._renderRight()}
+      <View>
+        <TouroStatusBar />
+        <View style={ss.container}>
+          {this._renderLeft(icon)}
+          {this._renderMiddle(title)}
+          {this._renderRight()}
+        </View>
       </View>
     )
   }
@@ -62,10 +66,9 @@ export default class Header extends Component {
 
 const ss = StyleSheet.create({
   container: {
-    height: 80,
+    height: isIOS ? 45 : 55,
     flexDirection: 'row',
-    backgroundColor: Colors.blue,
-    paddingTop: 35
+    backgroundColor: Colors.blue
   },
   left: {
     flex: 1,

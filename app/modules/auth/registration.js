@@ -106,6 +106,7 @@ class Registration extends Component {
 
     return (
       <View style={ss.screenWrapper}>
+
         <Header icon='back' title={_T('registration')} navigation={navigation} />
 
         <KeyboardAwareScrollView
