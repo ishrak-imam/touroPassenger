@@ -108,7 +108,7 @@ export default class ScrollableTab extends Component {
           contentContainerStyle={[ss.scrollView, { backgroundColor }]}
           onScroll={this._onScroll}
           showsHorizontalScrollIndicator={false}
-          scrollEnabled={false}
+          // scrollEnabled={false}
         >
           {this._renderMenuItems()}
         </ScrollView>

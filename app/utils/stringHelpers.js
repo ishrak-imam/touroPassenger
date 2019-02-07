@@ -14,6 +14,11 @@ export const checkEmail = email => {
   return re.test(String(email).toLowerCase())
 }
 
+export const checkBookingCode = code => {
+  const re = /^[0-9]{6}$/
+  return re.test(String(code))
+}
+
 export const checkSSN = ssn => {
   const re = /^(19|20)?(\d{6}(-|\s)\d{4}|(?!19|20)\d{10})$/
   return re.test(String(ssn))

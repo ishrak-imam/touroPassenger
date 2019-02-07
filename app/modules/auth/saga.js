@@ -8,6 +8,7 @@ import {
   ssnDataReq, ssnDataSucs, ssnDataFail
 } from './action'
 // import { clearImageCache } from '../../components/imageCache/action'
+import { NavigationActions } from 'react-navigation'
 import { navigateToScene } from '../../navigation/action'
 import localStore, { USER } from '../../utils/persist'
 import { login, requestSSNData } from './api'
@@ -21,12 +22,20 @@ function * workerInit () {
     const user = yield call(localStore.get, USER)
     if (user.accessToken) {
       yield put(loginSucs(user))
-      yield put(navigateToScene({ routeName: 'App' }))
+      const { loginType } = user
+      const appStartAt = loginType === 'booking' ? 'Trip' : 'Trips'
+      const route = {
+        routeName: 'App',
+        action: NavigationActions.navigate({ routeName: appStartAt })
+      }
+      yield put(navigateToScene(route))
     } else {
-      yield put(navigateToScene({ routeName: 'Auth' }))
+      const route = { routeName: 'Auth' }
+      yield put(navigateToScene(route))
     }
   } catch (e) {
-    yield put(navigateToScene({ routeName: 'Auth' }))
+    const route = { routeName: 'Auth' }
+    yield put(navigateToScene(route))
   }
 }
 
@@ -43,14 +52,16 @@ const formatUserData = user => {
     lastName: user.last_name,
     fullName: user.full_name,
     group: user.group,
-    image: user.image
+    image: user.image,
+    loginType: user.loginType
   }
 }
 
 function * workerLogin (action) {
-  const { user, password, failMsg } = action.payload
+  const { booking, ssn, password, loginType, failMsg } = action.payload
   try {
-    const result = yield call(login, user, password)
+    const result = yield call(login, booking, ssn, loginType, password)
+    result.loginType = loginType
     yield call(localStore.set, USER, formatUserData(result))
     yield put(init())
   } catch (e) {

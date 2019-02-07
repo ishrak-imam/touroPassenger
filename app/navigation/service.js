@@ -6,8 +6,6 @@ export const setNavigator = navigator => {
   _navigator = navigator
 }
 
-export const navigate = (routeName, params = {}) => {
-  _navigator.dispatch(NavigationActions.navigate({
-    routeName, params
-  }))
+export const navigate = route => {
+  _navigator.dispatch(NavigationActions.navigate(route))
 }

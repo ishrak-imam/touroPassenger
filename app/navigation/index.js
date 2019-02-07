@@ -11,7 +11,8 @@ import Drawer from '../components/drawer'
 import Loading from '../modules/auth/loading'
 import Login from '../modules/auth/login'
 import Registration from '../modules/auth/registration'
-import HomeScreen from '../modules/home'
+import TripScreen from '../modules/trip'
+import TripsScreen from '../modules/trips'
 
 const authStack = createStackNavigator(
   {
@@ -30,10 +31,11 @@ const authStack = createStackNavigator(
 
 const appStack = createStackNavigator(
   {
-    Home: { screen: HomeScreen }
+    Trips: { screen: TripsScreen },
+    Trip: { screen: TripScreen }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Trips',
     mode: 'modal',
     headerMode: 'none',
     navigationOptions: {

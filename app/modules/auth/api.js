@@ -3,8 +3,8 @@ import config from '../../utils/config'
 import { mockToken } from '../../mockData'
 import { postRequest } from '../../utils/request'
 
-export const login = (user, password) => {
-  return config.useMockData ? mockToken() : postRequest('token', { user, password })
+export const login = (booking, ssn, password, loginType) => {
+  return config.useMockData ? mockToken() : postRequest('token', { booking, ssn, password, loginType })
 }
 
 export const requestSSNData = ssn => {

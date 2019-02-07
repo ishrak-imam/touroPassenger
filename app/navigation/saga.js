@@ -13,9 +13,8 @@ export function * watchNavActions () {
 }
 
 function * navigationWorker (action) {
-  const { routeName, params } = action.payload
   switch (action.type) {
     case 'NAVIGATE_TO_SCENE':
-      yield call(navigate, routeName, params)
+      yield call(navigate, action.payload)
   }
 }

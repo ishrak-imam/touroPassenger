@@ -8,7 +8,7 @@ import {
 import { networkActionDispatcher } from '../../utils/actionDispatcher'
 import { loginReq } from './action'
 import { Colors, Images } from '../../theme'
-import { checkEmail } from '../../utils/stringHelpers'
+import { checkSSN, checkBookingCode } from '../../utils/stringHelpers'
 import { getLogin } from '../../selectors'
 import { connect } from 'react-redux'
 import Translator from '../../utils/translator'
@@ -21,25 +21,36 @@ class LoginScreen extends Component {
     this.state = {
       user: '',
       password: '',
-      isValidEmail: '',
-      passTyped: ''
+      isValidBooking: false,
+      isValidSSN: false,
+      passTyped: '',
+      loginType: ''
     }
   }
 
   _checkIsReady = () => {
     const { user, password } = this.state
     this.setState({
-      isValidEmail: checkEmail(user),
+      isValidBooking: checkBookingCode(user),
+      isValidSSN: checkSSN(user),
       passTyped: !!password
-    })
+    }, this._setLoginType)
+  }
+
+  _setLoginType = () => {
+    let { loginType, isValidBooking, isValidSSN } = this.state
+    if (isValidBooking) loginType = 'booking'
+    if (isValidSSN) loginType = 'ssn'
+    this.setState({ loginType })
   }
 
   _login = () => {
     Keyboard.dismiss()
-    const { user, password } = this.state
+    const { user, password, loginType } = this.state
     networkActionDispatcher(loginReq({
-      user,
+      [loginType]: user,
       password,
+      loginType,
       failMsg: _T('loginFail')
     }))
   }
@@ -53,11 +64,11 @@ class LoginScreen extends Component {
   }
 
   render () {
-    const { user, password, isValidEmail, passTyped } = this.state
+    const { user, password, isValidBooking, isValidSSN, passTyped } = this.state
     const { login } = this.props
     const isLoading = login.get('isLoading')
-    const isDisabled = (isLoading || !isValidEmail || !passTyped)
-    const forgotDisabled = (isLoading || !isValidEmail)
+    const isDisabled = (isLoading || !(isValidBooking || isValidSSN) || !passTyped)
+    const forgotDisabled = (isLoading || !(isValidBooking || isValidSSN))
     const backgroundColor = isDisabled ? Colors.buttonDisable : Colors.blue
     const color = forgotDisabled ? Colors.steel : Colors.blue
 
@@ -73,12 +84,12 @@ class LoginScreen extends Component {
             style={ss.inputElements}
             onChangeText={this._handleChange('user')}
             value={user}
-            placeholder='Email'
+            placeholder='Booking/SSN'
             autoCapitalize='none'
             autoCorrect={false}
             underlineColorAndroid='transparent'
             placeholderTextColor={Colors.charcoal}
-            keyboardType='email-address'
+            keyboardType='numeric'
             editable={!isLoading}
           />
           <TextInput

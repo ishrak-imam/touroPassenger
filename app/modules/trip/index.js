@@ -7,10 +7,11 @@ import Pager from '../../components/pager'
 import ImageCache from '../../components/imageCache'
 // import Header from '../../components/header'
 import ScrollableTab from '../../components/scrollableTab'
+import Booking from '../../components/booking'
 import Transport from '../../components/transport'
 import StatusBar from '../../components/statusBar'
 
-export default class HomeScreen extends Component {
+export default class TripScreen extends Component {
   _onPageChange = pageNumber => {
     this.scrollableTab._onTabSelect(pageNumber)()
   }
@@ -22,12 +23,12 @@ export default class HomeScreen extends Component {
   render () {
     // const { navigation } = this.props
     return (
-      <View style={ss.container}>
+      <View style={ss.screen}>
         {/* <Header icon='menu' title='Home' navigation={navigation} /> */}
 
         <StatusBar />
 
-        <Pager style={{ height: 250 }} minimap autoplay>
+        <Pager style={{ height: 200 }} minimap autoplay>
           <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />
@@ -45,7 +46,7 @@ export default class HomeScreen extends Component {
           onRef={ref => (this.pager = ref)}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Booking</Text>
+            <Booking />
           </View>
           <View style={{ flex: 1 }}>
             <Transport />
@@ -67,7 +68,7 @@ export default class HomeScreen extends Component {
 }
 
 const ss = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1
   },
   image: {

@@ -5,7 +5,7 @@ import isIphoneX from '../utils/isIphoneX'
 import isIOS from '../utils/isIOS'
 import { Colors } from '../theme'
 
-const STATUS_BAR_HEIGHT = isIphoneX ? 40 : isIOS ? 20 : StatusBar.currentHeight
+const STATUS_BAR_HEIGHT = isIphoneX ? 35 : isIOS ? 20 : StatusBar.currentHeight
 
 export default class TouroStatusBar extends Component {
   static defaultProps = {
