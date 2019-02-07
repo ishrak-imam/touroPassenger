@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { width } from '../utils/windowSize'
 import { Colors } from '../theme'
+import { LinearGradient } from 'expo'
 
 export default class Pager extends PureComponent {
   constructor (props) {
@@ -18,6 +19,15 @@ export default class Pager extends PureComponent {
 
     this._autoPlay = null
     this._minimap = new Animated.Value(0)
+  }
+
+  _renderGradient = () => {
+    return (
+      <LinearGradient
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        style={ss.gradient}
+      />
+    )
   }
 
   componentDidMount () {
@@ -37,10 +47,13 @@ export default class Pager extends PureComponent {
   }
 
   _getPages = () => {
-    const { children } = this.props
+    const { children, applyGradient } = this.props
     return React.Children.map(children, child => {
       return child
-        ? <View style={ss.child}>{child}</View>
+        ? <View style={ss.child}>
+          {child}
+          {applyGradient && this._renderGradient()}
+        </View>
         : null
     })
   }
@@ -171,5 +184,12 @@ const ss = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.5,
     shadowOffset: { width: 0, height: 0 }
+  },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
   }
 })

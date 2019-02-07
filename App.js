@@ -8,6 +8,9 @@ import { AppLoading } from 'expo'
 import cacheAssestsAsync from './app/utils/assetsCache'
 import I18n from './app/i18n'
 import { MenuProvider } from 'react-native-popup-menu'
+import { StatusBar } from 'react-native'
+
+StatusBar.setBarStyle('light-content')
 
 console.disableYellowBox = true
 

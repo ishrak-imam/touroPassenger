@@ -9,7 +9,6 @@ import ImageCache from '../../components/imageCache'
 import ScrollableTab from '../../components/scrollableTab'
 import Booking from '../../components/booking'
 import Transport from '../../components/transport'
-import StatusBar from '../../components/statusBar'
 
 export default class TripScreen extends Component {
   _onPageChange = pageNumber => {
@@ -21,14 +20,11 @@ export default class TripScreen extends Component {
   }
 
   render () {
-    // const { navigation } = this.props
     return (
       <View style={ss.screen}>
         {/* <Header icon='menu' title='Home' navigation={navigation} /> */}
 
-        <StatusBar />
-
-        <Pager style={{ height: 200 }} minimap autoplay>
+        <Pager style={{ height: 250 }} minimap autoplay applyGradient>
           <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
           <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />

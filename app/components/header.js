@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { Colors, IonIcon } from '../theme'
 import isIOS from '../utils/isIOS'
-import TouroStatusBar from './statusBar'
+import StatusBar from './statusBar'
 
 export default class Header extends Component {
   _renderLeft = icon => {
@@ -53,7 +53,7 @@ export default class Header extends Component {
     const { icon, title } = this.props
     return (
       <View>
-        <TouroStatusBar />
+        <StatusBar />
         <View style={ss.container}>
           {this._renderLeft(icon)}
           {this._renderMiddle(title)}
