@@ -24,9 +24,10 @@ function * workerInit () {
       yield put(loginSucs(user))
       const { loginType } = user
       const appStartAt = loginType === 'booking' ? 'Trip' : 'Trips'
+      const navigationIcon = loginType === 'booking' ? 'menu' : 'back'
       const route = {
         routeName: 'App',
-        action: NavigationActions.navigate({ routeName: appStartAt })
+        action: NavigationActions.navigate({ routeName: appStartAt, params: { navigationIcon } })
       }
       yield put(navigateToScene(route))
     } else {

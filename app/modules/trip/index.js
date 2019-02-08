@@ -9,6 +9,7 @@ import ImageCache from '../../components/imageCache'
 import ScrollableTab from '../../components/scrollableTab'
 import Booking from '../../components/booking'
 import Transport from '../../components/transport'
+import NavigationIcon from '../../components/navigationIcon'
 
 export default class TripScreen extends Component {
   _onPageChange = pageNumber => {
@@ -19,10 +20,21 @@ export default class TripScreen extends Component {
     this.pager._slideTo(pageNumber)
   }
 
+  _renderNavigationIcon = () => {
+    const { navigation } = this.props
+    const navigationIcon = navigation.getParam('navigationIcon')
+    return (
+      <NavigationIcon icon={navigationIcon} navigation={navigation} />
+    )
+  }
+
   render () {
     return (
+
       <View style={ss.screen}>
         {/* <Header icon='menu' title='Home' navigation={navigation} /> */}
+
+        {this._renderNavigationIcon()}
 
         <Pager style={{ height: 250 }} minimap autoplay applyGradient>
           <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
