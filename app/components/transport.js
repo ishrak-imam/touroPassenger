@@ -5,112 +5,107 @@ import {
 } from 'react-native'
 import { Colors } from '../theme'
 
-export default class Transport extends Component {
-  _circle = () => {
+const TOP_EVENT_HEIGHT = 130
+const EVENT_HEIGHT = 70
+const BIG_DOT_DIAMETER = 20
+const SMALL_DOT_DIAMETER = 10
+
+class TransportItem extends Component {
+  _eventDot = style => {
     return (
-      <View style={ss.circle} />
+      <View style={ss[style]} />
     )
   }
 
+  _eventLine = style => {
+    return (
+      <View style={ss[style]} />
+    )
+  }
+
+  _topEvent = () => {
+    return (
+      <View style={ss.topEvent}>
+
+        <View style={ss.topLeft}>
+          {this._eventDot('bigDot')}
+          {this._eventLine('topBigDotLine')}
+        </View>
+
+        <View style={ss.right}>
+          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+        </View>
+
+      </View>
+    )
+  }
+
+  _event = () => {
+    return (
+      <View style={ss.event}>
+
+        <View style={ss.left}>
+          {this._eventDot('smallDot')}
+          {this._eventLine('smallDotLine')}
+        </View>
+
+        <View style={ss.right}>
+          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+        </View>
+
+      </View>
+    )
+  }
+
+  _bottomEvent = () => {
+    return (
+      <View style={ss.event}>
+
+        <View style={ss.bottomLeft}>
+          {this._eventLine('bottomBigDotLine')}
+          {this._eventDot('bigDot')}
+        </View>
+
+        <View style={ss.right}>
+          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+        </View>
+
+      </View>
+    )
+  }
+
+  render () {
+    return (
+      <View style={ss.item}>
+
+        <View style={ss.header}>
+          <Text style={ss.headerText}>OUT</Text>
+        </View>
+
+        {this._topEvent()}
+        {this._event()}
+        {this._event()}
+        {this._bottomEvent()}
+
+      </View>
+    )
+  }
+}
+
+export default class Transport extends Component {
   render () {
     return (
       <View style={ss.container}>
 
         <ScrollView contentContainerStyle={ss.scrollView}>
 
-          <View style={ss.item}>
-            <View style={ss.header}>
-              <Text style={ss.boldText}>OUT</Text>
-            </View>
-
-            <View style={ss.body}>
-
-              <View style={{ flex: 0.7 }}>
-                <View style={[ss.circleCon, { justifyContent: 'flex-end' }]}>
-                  {this._circle()}
-                </View>
-                <View style={ss.lineCon}>
-                  <View style={ss.line} />
-                </View>
-                <View style={[ss.circleCon, { justifyContent: 'flex-start' }]}>
-                  {this._circle()}
-                </View>
-              </View>
-
-              <View style={{ flex: 5 }}>
-
-                <View style={{ flex: 2, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-
-              </View>
-
-            </View>
-
-          </View>
-
-          <View style={ss.item}>
-            <View style={ss.header}>
-              <Text style={ss.boldText}>HOME</Text>
-            </View>
-
-            <View style={ss.body}>
-
-              <View style={{ flex: 0.7 }}>
-                <View style={[ss.circleCon, { justifyContent: 'flex-end' }]}>
-                  {this._circle()}
-                </View>
-                <View style={ss.lineCon}>
-                  <View style={ss.line} />
-                </View>
-                <View style={[ss.circleCon, { justifyContent: 'flex-start' }]}>
-                  {this._circle()}
-                </View>
-              </View>
-
-              <View style={{ flex: 5 }}>
-
-                <View style={{ flex: 2, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <View style={{ height: 20, width: 300, backgroundColor: Colors.steel, marginBottom: 5 }} />
-                  <View style={{ height: 20, width: 200, backgroundColor: Colors.steel }} />
-                </View>
-
-              </View>
-
-            </View>
-
-          </View>
+          <TransportItem />
+          <TransportItem />
 
         </ScrollView>
       </View>
@@ -126,45 +121,75 @@ const ss = StyleSheet.create({
     paddingBottom: 20
   },
   item: {
-    height: 400,
     marginBottom: 10,
     borderBottomWidth: 1,
     borderColor: Colors.steel,
     marginHorizontal: 10
   },
   header: {
-    flex: 0.5,
-    flexDirection: 'row',
-    alignItems: 'flex-end'
+    height: 30,
+    justifyContent: 'center',
+    marginLeft: 10
   },
-  boldText: {
+  headerText: {
     fontWeight: 'bold'
   },
-  body: {
-    flex: 6,
-    flexDirection: 'row',
-    paddingBottom: 10
-  },
-  circleCon: {
-    flex: 1,
-    alignItems: 'flex-end',
-    marginRight: 10
-  },
-  circle: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
+  bigDot: {
+    height: BIG_DOT_DIAMETER,
+    width: BIG_DOT_DIAMETER,
+    borderRadius: BIG_DOT_DIAMETER / 2,
     backgroundColor: Colors.blue
   },
-  lineCon: {
-    flex: 6,
-    alignItems: 'flex-end',
-    marginRight: 10
-  },
-  line: {
-    flex: 1,
-    marginRight: 9,
+  topBigDotLine: {
+    height: (TOP_EVENT_HEIGHT - BIG_DOT_DIAMETER) / 2,
     width: 2,
     backgroundColor: Colors.blue
+  },
+  bottomBigDotLine: {
+    height: (EVENT_HEIGHT - BIG_DOT_DIAMETER) / 2,
+    width: 2,
+    backgroundColor: Colors.blue
+  },
+  smallDot: {
+    height: SMALL_DOT_DIAMETER,
+    width: SMALL_DOT_DIAMETER,
+    borderRadius: SMALL_DOT_DIAMETER / 2,
+    backgroundColor: Colors.blue,
+    position: 'relative',
+    top: EVENT_HEIGHT / 2
+  },
+  smallDotLine: {
+    height: EVENT_HEIGHT,
+    width: 2,
+    backgroundColor: Colors.blue,
+    position: 'relative',
+    top: -(SMALL_DOT_DIAMETER / 2)
+  },
+  topEvent: {
+    height: TOP_EVENT_HEIGHT,
+    flexDirection: 'row'
+  },
+  event: {
+    height: EVENT_HEIGHT,
+    flexDirection: 'row'
+  },
+  topLeft: {
+    flex: 0.7,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  left: {
+    flex: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  bottomLeft: {
+    flex: 0.7,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  right: {
+    flex: 6,
+    justifyContent: 'center'
   }
 })
