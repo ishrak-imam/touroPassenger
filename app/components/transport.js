@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {
   View, Text, StyleSheet, ScrollView
 } from 'react-native'
-import { Colors } from '../theme'
+import { Colors, IonIcon } from '../theme'
 
 const TOP_EVENT_HEIGHT = 130
 const EVENT_HEIGHT = 70
@@ -33,17 +33,19 @@ class TransportItem extends Component {
         </View>
 
         <View style={ss.right}>
-          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
-          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
-          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
-          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <Text>Thursday, 28 February</Text>
+          <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>08:10, Oresundsterminalen, Arlov</Text>
+
+          <Text>Platform 4</Text>
+          <Text>Buss XYZ 123</Text>
+          <Text>Chauffor: Nisse Andersson</Text>
         </View>
 
       </View>
     )
   }
 
-  _event = () => {
+  _event = event => {
     return (
       <View style={ss.event}>
 
@@ -53,15 +55,15 @@ class TransportItem extends Component {
         </View>
 
         <View style={ss.right}>
-          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
-          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+          <Text style={{ fontWeight: 'bold' }}>{event.title}</Text>
+          <Text>{event.subtitle}</Text>
         </View>
 
       </View>
     )
   }
 
-  _bottomEvent = () => {
+  _bottomEvent = event => {
     return (
       <View style={ss.event}>
 
@@ -70,9 +72,17 @@ class TransportItem extends Component {
           {this._eventDot('bigDot')}
         </View>
 
-        <View style={ss.right}>
-          <View style={{ width: 300, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
-          <View style={{ width: 200, height: 20, backgroundColor: Colors.steel, marginBottom: 5 }} />
+        <View style={ss.bottomRight}>
+          <View style={ss.arrival}>
+            <Text style={{ fontWeight: 'bold' }}>{event.title}</Text>
+            <Text>{event.subtitle}</Text>
+          </View>
+          <View style={ss.weather}>
+            <IonIcon name='temperature' />
+            <Text style={ss.temprature}>8</Text>
+            <IonIcon style={ss.degree} name='radioOff' size={7} />
+            <Text style={ss.unit}>C</Text>
+          </View>
         </View>
 
       </View>
@@ -88,9 +98,9 @@ class TransportItem extends Component {
         </View>
 
         {this._topEvent()}
-        {this._event()}
-        {this._event()}
-        {this._bottomEvent()}
+        {this._event({ title: '09:45, Farjeoverfart', subtitle: 'Rodby - Putgarden' })}
+        {this._event({ title: '12:00, Der Alte Kase', subtitle: 'Lunch, observera att tiden kan variera lite' })}
+        {this._bottomEvent({ title: '18:00 Berlin, Ivbergs Premium', subtitle: 'Cirkatid' })}
 
       </View>
     )
@@ -191,5 +201,29 @@ const ss = StyleSheet.create({
   right: {
     flex: 6,
     justifyContent: 'center'
+  },
+  bottomRight: {
+    flex: 6,
+    flexDirection: 'row'
+  },
+  arrival: {
+    flex: 4,
+    justifyContent: 'center'
+  },
+  weather: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  temprature: {
+    fontSize: 18,
+    marginLeft: 5
+  },
+  degree: {
+    marginTop: -7
+  },
+  unit: {
+    fontSize: 18
   }
 })

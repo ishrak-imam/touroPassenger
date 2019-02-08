@@ -12,7 +12,8 @@ const getIconName = name => {
     menu: ['ios-menu', 'md-menu'],
     logOut: ['ios-log-out', 'md-log-out'],
     radioOff: ['ios-radio-button-off', 'md-radio-button-off'],
-    checkFill: ['ios-checkmark-circle', 'md-checkmark-circle']
+    checkFill: ['ios-checkmark-circle', 'md-checkmark-circle'],
+    temperature: ['ios-thermometer', 'md-thermometer']
   }
   const result = icons[name]
   return isIOS ? result[0] : result[1]
