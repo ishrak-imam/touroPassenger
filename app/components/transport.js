@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { Colors, IonIcon } from '../theme'
 
+const TOP_DOT_MARGIN = 30 // dot at start
 const TOP_EVENT_HEIGHT = 130
 const EVENT_HEIGHT = 70
 const BIG_DOT_DIAMETER = 20
@@ -28,7 +29,7 @@ class TransportItem extends Component {
       <View style={ss.topEvent}>
 
         <View style={ss.topLeft}>
-          {this._eventDot('bigDot')}
+          {this._eventDot('topBigDot')}
           {this._eventLine('topBigDotLine')}
         </View>
 
@@ -69,7 +70,7 @@ class TransportItem extends Component {
 
         <View style={ss.bottomLeft}>
           {this._eventLine('bottomBigDotLine')}
-          {this._eventDot('bigDot')}
+          {this._eventDot('bottomBigDot')}
         </View>
 
         <View style={ss.bottomRight}>
@@ -144,14 +145,22 @@ const ss = StyleSheet.create({
   headerText: {
     fontWeight: 'bold'
   },
-  bigDot: {
+  topBigDot: {
+    height: BIG_DOT_DIAMETER,
+    width: BIG_DOT_DIAMETER,
+    borderRadius: BIG_DOT_DIAMETER / 2,
+    backgroundColor: Colors.blue,
+    marginTop: TOP_DOT_MARGIN // dot at start
+  },
+  bottomBigDot: {
     height: BIG_DOT_DIAMETER,
     width: BIG_DOT_DIAMETER,
     borderRadius: BIG_DOT_DIAMETER / 2,
     backgroundColor: Colors.blue
   },
   topBigDotLine: {
-    height: (TOP_EVENT_HEIGHT - BIG_DOT_DIAMETER) / 2,
+    // height: (TOP_EVENT_HEIGHT - BIG_DOT_DIAMETER) / 2,
+    height: TOP_EVENT_HEIGHT - TOP_DOT_MARGIN,
     width: 2,
     backgroundColor: Colors.blue
   },
@@ -185,7 +194,7 @@ const ss = StyleSheet.create({
   },
   topLeft: {
     flex: 0.7,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start', // dot at start
     alignItems: 'center'
   },
   left: {
