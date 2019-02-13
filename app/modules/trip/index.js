@@ -36,11 +36,11 @@ export default class TripScreen extends Component {
 
         {this._renderNavigationIcon()}
 
-        <Pager style={{ height: 250 }} minimap autoplay applyGradient>
-          <ImageCache uri={'https://picsum.photos/500/300?image=2'} style={ss.image} />
-          <ImageCache uri={'https://picsum.photos/500/300?image=3'} style={ss.image} />
-          <ImageCache uri={'https://picsum.photos/500/300?image=4'} style={ss.image} />
-          <ImageCache uri={'https://picsum.photos/500/300?image=5'} style={ss.image} />
+        <Pager style={{ height: 250 }} minimap applyGradient>
+          <ImageCache uri={'https://picsum.photos/500/300?image=1081'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=1076'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=1068'} style={ss.image} />
+          <ImageCache uri={'https://picsum.photos/500/300?image=1052'} style={ss.image} />
         </Pager>
 
         <ScrollableTab
