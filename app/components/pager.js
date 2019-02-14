@@ -142,6 +142,7 @@ export default class Pager extends PureComponent {
     return (
       <View style={style}>
         <ScrollView
+          bounces={false}
           ref={ref => { this.pager = ref }}
           horizontal
           pagingEnabled
